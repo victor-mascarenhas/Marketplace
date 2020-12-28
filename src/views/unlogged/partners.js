@@ -21,6 +21,7 @@ export default Partners;
 
 
 const CardBox = styled.div`
+  margin: 1rem 5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 290px));
   grid-auto-rows: auto;
