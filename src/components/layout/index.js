@@ -1,6 +1,6 @@
 import { Layout, Menu, Input } from 'antd'
 import styled from 'styled-components'
-import { FaHome, FaStoreAlt, FaHammer } from 'react-icons/fa'
+import { FaHome, FaStoreAlt, FaHammer, FaShoppingCart } from 'react-icons/fa'
 import { GiBrickWall } from 'react-icons/gi'
 import { CgProfile } from 'react-icons/cg'
 import { Link } from 'react-router-dom'
@@ -11,9 +11,10 @@ const { Header, Content, Footer } = Layout;
 
 const MenuItems = [
     { order: "1", link: "/", title: "Home", icon: <FaHome /> },
-    { order: "2", link: "/parceiros", title: "Parceiros", icon: <FaStoreAlt />},
-    { order: "3", link: "/produtos", title: "Produtos", icon: <FaHammer /> },
-    { order: "4", link: "/login", title: "Login", icon: <CgProfile /> },
+    { order: "2", link: "/produtos", title: "Produtos", icon: <FaHammer /> },
+    { order: "3", link: "/parceiros", title: "Parceiros", icon: <FaStoreAlt />},
+    { order: "4", link: "/carrinho", title: "Carrinho", icon: <FaShoppingCart /> },    
+    { order: "5", link: "/login", title: "Login", icon: <CgProfile /> },
   ];
 
 const LayoutBase = ({children, banner}) => {
