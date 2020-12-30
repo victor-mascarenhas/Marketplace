@@ -35,7 +35,7 @@ const LoginForm = () => {
                     name="email"
                     rules={[{
                         required: true,
-                        message: 'Please input your email!'
+                        message: 'Por favor insira seu e-mail'
                     }]}
                 >
                     <Input
@@ -50,7 +50,7 @@ const LoginForm = () => {
                     name="password"
                     rules={[{
                         required: true,
-                        message: 'Please input your password!'
+                        message: 'Por favor insira uma senha'
                     }]}
                 >
                     <Input.Password
@@ -67,7 +67,7 @@ const LoginForm = () => {
                         type="primary"
                         htmlType="submit"
                     >
-                        Submit
+                        Enviar
         </Button>
                 </Form.Item>
             </Form>

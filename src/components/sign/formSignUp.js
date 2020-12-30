@@ -30,7 +30,7 @@ const SignUpForm = () => {
                     ...form
                 }}
             >
-                <h1> Login </h1>
+                <h1> Cadastre-se </h1>
                 <Form.Item
                     name="name"
                     rules={[{
@@ -42,21 +42,21 @@ const SignUpForm = () => {
                         name="name"
                         value={form.name || ""}
                         onChange={handleChange}
-                        placeholder="João da Silva"
+                        placeholder="Seu nome"
                     />
                 </Form.Item>
                 <Form.Item
                     name="email"
                     rules={[{
                         required: true,
-                        message: 'Por favor insira seu email'
+                        message: 'Por favor insira seu e-mail'
                     }]}
                 >
                     <Input
                         name="email"
                         value={form.email || ""}
                         onChange={handleChange}
-                        placeholder="email@example.com"
+                        placeholder="Seu e-mail"
                     />
                 </Form.Item>
 
@@ -71,7 +71,7 @@ const SignUpForm = () => {
                         name="password"
                         value={form.password || ""}
                         onChange={handleChange}
-                        placeholder="Password"
+                        placeholder="Sua senha"
                     />
                 </Form.Item>
 
@@ -81,7 +81,7 @@ const SignUpForm = () => {
                         type="primary"
                         htmlType="submit"
                     >
-                        Submit
+                        Enviar
         </Button>
                 </Form.Item>
             </Form>

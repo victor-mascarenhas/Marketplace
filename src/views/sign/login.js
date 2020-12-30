@@ -12,10 +12,10 @@ const SignIn = () => {
         <Layout className="layout">
             <Main>
                 <SliceSignUp span={12}>
-                <SignUpForm/>
+                <LoginForm/>
                 </SliceSignUp>
                 <SliceLogin span={12}>
-                <LoginForm/>
+                <SignUpForm/>
                 </SliceLogin>
             </Main>
         </Layout>
