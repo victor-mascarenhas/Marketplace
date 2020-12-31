@@ -7,10 +7,7 @@ import { Layout, Col } from 'antd'
 const { Content } = Layout
 
 const Admin = () => {
-
-    
-
-
+ 
 
     return (
         <LayoutAdmin>

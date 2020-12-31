@@ -1,22 +1,31 @@
-import { Layout, Col } from 'antd'
+import { Layout, Button } from 'antd'
 import styled from 'styled-components'
 import LoginForm from '../../components/sign/formSignIn'
-import SignUpForm from '../../components/sign/formSignUp'
+import history from '../../config/history'
 
 const { Content } = Layout
 
 
 const SignIn = () => {
-      
+
+    
     return (
         <Layout className="layout">
             <Main>
-                <SliceSignUp span={12}>
-                <LoginForm/>
-                </SliceSignUp>
-                <SliceLogin span={12}>
-                <SignUpForm/>
-                </SliceLogin>
+                <LoginContainer>
+                    <LoginForm />
+                    <hr />
+                    <br />
+                    <Button
+                        onClick={() => history.push('/signup')}
+                        type="link"
+                        block
+                    >                        
+                    Não tem cadastro? Cadastre-se!                        
+                    </Button>
+                    
+
+                </LoginContainer>
             </Main>
         </Layout>
     );
@@ -28,24 +37,19 @@ export default SignIn
 const Main = styled(Content)`
 display: flex;
 height: 100vh;
-`
-const SliceSignUp = styled(Col)`
-height: 100vh;
-  display: flex;
-  padding: 20px;
-
-  h1{
-      color: black;
-  }
+justify-content: center;
+align-items: center;
 `
 
-const SliceLogin = styled(Col)`
-height: 100vh;
-  display: flex;
-  background-image: linear-gradient(180deg, #1c516a, #061b35);
-  padding: 20px;
+const LoginContainer = styled.div`
+width: 30vw;
+height: 60vh;
 
-  h1{
-      color: white;
-  }
+hr{
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+    width:15vw; 
+}
 `
+

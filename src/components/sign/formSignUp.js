@@ -6,18 +6,23 @@ import { signUp } from '../../store/sign/action.sign'
 
 
 
-const SignUpForm = () => {
+const SignUpForm = (props) => {
+
+    const isPartner = props.isPartner
+
+    
 
     const dispatch = useDispatch()
-    const [form, setForm] = useState({})
-    
+    const [form, setForm] = useState({
+        
+    })    
     const handleChange = (event) => {
         setForm({
-            ...form,
+            ...form, 
+            partner: isPartner,
             [event.target.name]: event.target.value
         })
-    }
-    
+    }    
     const submitForm = () => {
         dispatch(signUp(form));
     }
@@ -30,12 +35,13 @@ const SignUpForm = () => {
                     ...form
                 }}
             >
-                <h1> Cadastre-se </h1>
+                <h1> {isPartner ? 'Seja uma loja parceira' : 'Cadastre-se'} </h1>
+                <br/>
                 <Form.Item
                     name="name"
                     rules={[{
                         required: true,
-                        message: 'Por favor insira o seu nome'
+                        message: 'Por favor insira o nome'
                     }]}
                 >
                     <Input
@@ -49,7 +55,7 @@ const SignUpForm = () => {
                     name="email"
                     rules={[{
                         required: true,
-                        message: 'Por favor insira seu e-mail'
+                        message: 'Por favor insira o e-mail'
                     }]}
                 >
                     <Input
@@ -74,12 +80,13 @@ const SignUpForm = () => {
                         placeholder="Sua senha"
                     />
                 </Form.Item>
-
+                
                 <Form.Item >
                     <Button
                         onClick={submitForm}
                         type="primary"
                         htmlType="submit"
+                        block
                     >
                         Enviar
         </Button>

@@ -29,7 +29,7 @@ export const signUp = (props) => {
             const { data } = await createUser(props)           
             dispatch({ type: SIGN_UP, data: data })
             toastr.success('SUCESSO!', 'Usuário criado com sucesso!')
-            history.push('/')
+            history.push('/login')
 
         } catch (error) {
             toastr.error('ERRO!', 'Houve um problema ao criar usuário!')

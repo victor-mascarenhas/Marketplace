@@ -3,12 +3,46 @@ import Sider from '../../components/products/sideMenu'
 import Card from '../../components/products/cards'
 import styled from 'styled-components'
 import { Layout, Col } from 'antd'
+import { getAllProducts } from '../../store/product/product.action'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import Loading from '../../components/loading'
 
 const { Content } = Layout
 
 const Products = () => {
+  const dispatch = useDispatch()
+  const [update, setUpdate] = useState(false)
+  const loading = useSelector((state) => state.product.loading)
+  const allProducts = useSelector((state) => state.product.all)
 
-  const mockCards = [...Array(10).keys()]
+  useEffect(() => {
+    dispatch(getAllProducts())
+    if(update){
+    setUpdate(false)
+    }
+  }, [dispatch, update])
+
+  const mountPost = () => {
+
+    if (allProducts) {
+     return allProducts.map((item, i) => (
+        <Card
+        key={i}
+        photo={item.photo}
+        title={item.title}
+        description={item.description}
+        category={item.category.name}
+        partner={item.partner.name}
+        highlight={item.highlight}
+        price={item.price}
+        status={item.status}
+        />
+      ));
+    }
+    return;
+  }
+
 
   return (
     <BaseLayout banner={true}> 
@@ -19,9 +53,9 @@ const Products = () => {
     </ContainerMenu> 
     <CardContainer span={20}> 
     <CardBox>          
-          {mockCards.map((v, i) => (
-            <Card key={i}/>
-          ))}            
+    {loading ? 
+      <Loading /> 
+      : mountPost()}         
           </CardBox>
     </CardContainer> 
     </Main>

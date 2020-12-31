@@ -31,6 +31,7 @@ const LoginForm = () => {
                 }}
             >
                 <h1> Login </h1>
+                <br/>
                 <Form.Item
                     name="email"
                     rules={[{
@@ -66,6 +67,7 @@ const LoginForm = () => {
                         onClick={submitForm}
                         type="primary"
                         htmlType="submit"
+                        block
                     >
                         Enviar
         </Button>
