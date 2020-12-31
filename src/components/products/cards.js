@@ -46,6 +46,10 @@ const StyledCard = styled(Card)`
 border: thin solid #e7e7e7;
   border-radius: 5px;
   overflow: hidden;
+  img{
+      max-width: 300px !important;
+      max-height: 240px !important;
+  }
 `
 
 const Title = styled.div`

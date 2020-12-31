@@ -90,7 +90,7 @@ const Logo = styled.div`
   }
 `
 const SearchContainer = styled.div`
-width: 45%;
+width: 25vw;
 display: flex;
 align-items: center;
 margin: 5px; 

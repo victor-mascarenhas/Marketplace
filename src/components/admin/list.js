@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { List } from 'antd';
 import ListItem from './item';
-import { getAllProducts } from '../../store/product/product.action'
+import { getPartnerProducts } from '../../store/partner/partner.action'
 
 
  const Lista = () => {
@@ -10,14 +10,16 @@ import { getAllProducts } from '../../store/product/product.action'
   const [update, setUpdate] = useState(false)
   const dispatch = useDispatch()
 
-  const allProducts = useSelector((state) => state.product.all)
+  const partner = useSelector((state) => state.auth.user.id) 
+
+  const PartnerProducts = useSelector((state) => state.partner.products)
 
   useEffect(() => {
-      dispatch(getAllProducts())
+      dispatch(getPartnerProducts(partner))
       if(update){
       setUpdate(false)
       }
-    }, [dispatch, update])
+    }, [dispatch, update, partner])
 
             
 
@@ -31,7 +33,7 @@ return (
       },
       pageSize: 10,
     }}
-    dataSource={allProducts}
+    dataSource={PartnerProducts}
     footer={
       <div>
         <b>ant design</b> footer part
