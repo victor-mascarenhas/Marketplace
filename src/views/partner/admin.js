@@ -1,5 +1,6 @@
 import LayoutAdmin from '../../components/admin/layout'
 import Lista from '../../components/admin/list'
+import Form from '../../components/admin/create'
 import Menu from '../../components/admin/menu'
 import styled from 'styled-components'
 import { Layout, Col } from 'antd'
@@ -18,7 +19,7 @@ const Admin = () => {
                 </ContainerMenu>
                 <CardContainer span={20}>
                     <CardBox>
-                    <Lista/>
+                        <Form/>
                     </CardBox>
                 </CardContainer>
             </Main>            

@@ -27,7 +27,7 @@ http.interceptors.response.use(
       case 401:
         console.log("Token inválido...");
         removeToken();
-        history.push("/signin");
+        history.push("/login");
         break;
       case 404:
         console.log("Pagina não encontrada...");
