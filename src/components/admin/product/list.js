@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { List } from 'antd';
 import ListItem from './item';
-import { getPartnerProducts } from '../../store/partner/partner.action'
+import { getPartnerProducts } from '../../../store/partner/partner.action'
 
 
  const Lista = () => {

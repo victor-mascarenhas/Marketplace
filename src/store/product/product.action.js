@@ -14,19 +14,9 @@ export const getAllProducts = () => {
 };
 
 export const createNewProduct = (form) => {
-    return async (dispatch) => {
-        /* const product = {
-            title : form.title,
-            photo: form.photo,
-            category: form.category,
-            description: form.description,
-            highlight: form.highlight,
-            price: form.price,
-            status: form.status
-        } */
+    return async (dispatch) => {        
 
         dispatch({ type: PRODUCT_LOADING, status: true })
-
         try{
             const res = await createProduct(form)
             if(res.data){

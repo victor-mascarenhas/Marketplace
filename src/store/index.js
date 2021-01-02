@@ -7,12 +7,14 @@ import multi from 'redux-multi'
 import SignReducer from './sign/reducer.sign'
 import ProductReducer from './product/product.reducer'
 import PartnerReducer from './partner/partner.reducer'
+import CategoryReducer from './category/category.reducer'
 
 const reducers = combineReducers({
     auth: SignReducer,
     toastr: toastrReducer,
     product: ProductReducer,
-    partner: PartnerReducer
+    partner: PartnerReducer,
+    category: CategoryReducer
 });
 
 const middleware = [thunk, multi];

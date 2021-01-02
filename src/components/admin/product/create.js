@@ -9,7 +9,7 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useDispatch } from "react-redux";
-import { createNewProduct } from "../../store/product/product.action";
+import { createNewProduct } from "../../../store/product/product.action";
 import React, { useState } from 'react'
 
 const { Option } = Select;
