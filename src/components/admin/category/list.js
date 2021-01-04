@@ -70,7 +70,6 @@ const delCategory = (props) => {
     </Modal>
   )
   
-//FALTA ALERT PARA DELEÇÃO DE CATEGORIA!!!!!!!!!
 
   return (
     <>

@@ -8,4 +8,7 @@ const createProduct = async (data) => {
     return await http.post(`/product`, data)
 }
 
-export { getProduct, createProduct }
+const patchProducts = (_id, data) => http.patch(`/product/${_id}`, data)
+const delProduct = (_id) => http.delete(`/product/${_id}`)
+
+export { getProduct, createProduct, patchProducts, delProduct }

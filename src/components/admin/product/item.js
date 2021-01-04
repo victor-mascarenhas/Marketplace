@@ -6,31 +6,31 @@ import { FaTrash } from 'react-icons/fa'
 import styled from 'styled-components'
 
 
-const ListItem = (props) => {
+const ListItem = ({product, isEdit, delProduct}) => {
 
         
     return (
 
         <List.Item
-            key={props.key}
+            key={product.key}
             actions={[
                 <Logo><IoOpen/></Logo>,
-                <Logo><FiEdit /></Logo>,
-                <Logo><FaTrash /></Logo>,
+                <Logo onClick={() => isEdit(product)}> <FiEdit /></Logo>,
+                <Logo onClick={() => delProduct(product)}> <FaTrash /></Logo>,
             ]}
             extra={
                 <img
                     width={150}
                     alt="logo"
-                    src={props.photo}
+                    src={product.photo}
                 />
             }
         >
             <List.Item.Meta
-                title={props.title}
-                description={props.category}
+                title={product.title}
+                description={product.category.name}
             />
-            {props.description}
+            {product.description}
         </List.Item>
 
     )

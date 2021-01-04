@@ -1,8 +1,9 @@
-import { PRODUCT_LOADING, GET_PRODUCTS, CREATE_PRODUCT } from './product.action'
+import { PRODUCT_LOADING, GET_PRODUCTS, CREATE_PRODUCT, PATCH_PRODUCT, SET_PRODUCTS, DELETE_PRODUCT } from './product.action'
 
 const INITIAL_STATE = {
     all: [],
-    loading: false
+    loading: false,
+    edit: {}
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,15 @@ const reducer = (state = INITIAL_STATE, action) => {
             state.loading = action.status;
             return state;
         case CREATE_PRODUCT:
+            state.loading = false;
+            return state;
+        case PATCH_PRODUCT:
+            state.loading = false;
+            return state;
+        case SET_PRODUCTS:
+            state.edit = action.data;
+            return state;
+        case DELETE_PRODUCT:
             state.loading = false;
             return state;
 

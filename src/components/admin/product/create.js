@@ -8,9 +8,13 @@ import {
   Upload
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { useDispatch } from "react-redux";
-import { createNewProduct } from "../../../store/product/product.action";
+import { useDispatch, useSelector } from "react-redux";
+import { createNewProduct, updateProduct } from "../../../store/product/product.action";
+import { getAllCategories } from '../../../store/category/category.action'
 import React, { useState } from 'react'
+import history from '../../../config/history'
+import styled from 'styled-components'
+import { useEffect } from 'react'
 
 const { Option } = Select;
 const formItemLayout = {
@@ -22,11 +26,30 @@ const formItemLayout = {
   },
 };
 
-const Create = () => {
+const Create = (props) => {
 
+  const product = useSelector((state) => state.product.edit)
+  const allCategories = useSelector((state) => state.category.all)
+  const isEdit = Object.keys(product).length > 0
+  const typeReq = (data) => isEdit ? dispatch(updateProduct(product._id, data)) : dispatch(createNewProduct(data))
+
+  
   const dispatch = useDispatch();
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({
+    ...product
+  })
 
+  useEffect(() => {
+    dispatch(getAllCategories())    
+  }, [dispatch])
+
+
+  const removePhoto = () => {
+    setForm({
+      ...form,
+      photo: ""
+    })
+  }
 
   const normFile = (e) => {
 
@@ -38,31 +61,35 @@ const Create = () => {
   };
 
 
-  const onFinish = (values) => {                 
+  const onFinish = (values) => {
 
     let data = new FormData()
     Object.keys(form)
       .forEach(key => data.append(key, form[key]))
-    const config = {      
+    const config = {
       headers: {
         'Content-type': 'multipart/form-data'
       }
-    } 
+    }
 
-
-    dispatch(createNewProduct(data, config))  
+    typeReq(data, config)
+    setForm({})
+    if (isEdit) {
+      setTimeout(() => props.edit(), 500)
+    }
+    history.push('/admin/product/list')
   };
-  
 
-const changes = (event, allevents) => {
-  setForm({...allevents}) 
-  if(allevents.photo){
-  setForm({
-    ...form,
-    photo: allevents.photo[0].originFileObj
-  })
-}
-}
+
+  const changes = (event, allevents) => {
+    setForm({ ...allevents })
+    if (allevents.photo && allevents.photo[0].originFileObj ) {
+      setForm({
+        ...allevents,
+        photo: allevents.photo[0].originFileObj
+      })
+    }
+  }
 
   return (
     <Form
@@ -70,6 +97,7 @@ const changes = (event, allevents) => {
       {...formItemLayout}
       onFinish={onFinish}
       initialValues={{
+        ...form
       }}
       onValuesChange={changes}
     >
@@ -77,10 +105,11 @@ const changes = (event, allevents) => {
       <Form.Item
         name='title'
         label="Nome"
-        
+
         rules={[
           {
             required: true,
+            message: 'Insira um nome',
           },
         ]}
       >
@@ -98,13 +127,14 @@ const changes = (event, allevents) => {
         rules={[
           {
             required: true,
-            message: 'Please select your country!',
+            message: 'Selecione uma categoria',
           },
         ]}
       >
-        <Select placeholder="Please select a country">
-          <Option value="5feb8792542ba538a0225c06">Ferramentas</Option>
-          <Option value="5fec1c9af457382b24b4765e">Materiais de construção</Option>
+        <Select placeholder="Selecione uma categoria">
+        {allCategories.map((ctg, i) => (
+          <Option key={i} value={ctg._id}>{ctg.name}</Option>
+        ))}
         </Select>
       </Form.Item>
 
@@ -129,6 +159,12 @@ const changes = (event, allevents) => {
         </Upload>
       </Form.Item>
 
+      {isEdit && form.photo ? <Thumb>
+        <img src={form.photo} alt="thumbnail" />
+        <span onClick={removePhoto}>Remover</span>
+      </Thumb>
+      : "" }
+
 
 
       <Form.Item
@@ -149,3 +185,20 @@ const changes = (event, allevents) => {
 
 
 export default Create
+
+const Thumb = styled.div`
+display: flex; 
+flex-direction: column;
+margin: 2rem 5rem;
+img{
+max-height: 200px;
+max-width: 200px;
+}
+span{
+    color:red;
+    &:hover{
+        cursor:pointer;
+    }
+    
+}
+`
