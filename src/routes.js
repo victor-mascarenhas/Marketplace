@@ -5,7 +5,7 @@ import { isAuthenticated } from './config/auth'
 //Views
 import Home from './views/unlogged/home'
 import Partners from './views/unlogged/partners'
-import Products from './views/unlogged/products'
+import Products from './views/unlogged/products/'
 import Login from './views/sign/login'
 import Signup from './views/sign/signup'
 import ShoppingCart from './views/user/shopcart'

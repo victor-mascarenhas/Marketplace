@@ -1,12 +1,12 @@
-import BaseLayout from '../../components/layout'
-import Sider from '../../components/products/sideMenu'
-import Card from '../../components/products/cards'
+import BaseLayout from '../../../components/layout'
+import Sider from '../../../components/products/sideMenu'
+import Card from '../../../components/products/cards'
 import styled from 'styled-components'
 import { Layout, Col } from 'antd'
-import { getAllProducts } from '../../store/product/product.action'
+import { getAllProducts } from '../../../store/product/product.action'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Loading from '../../components/loading'
+import Loading from '../../../components/loading'
 
 const { Content } = Layout
 
