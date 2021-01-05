@@ -29,6 +29,7 @@ const formItemLayout = {
 const Create = (props) => {
 
   const product = useSelector((state) => state.product.edit)
+  const [updatePhoto, setUpdatePhoto] = useState(false)
   const allCategories = useSelector((state) => state.category.all)
   const isEdit = Object.keys(product).length > 0
   const typeReq = (data) => isEdit ? dispatch(updateProduct(product._id, data)) : dispatch(createNewProduct(data))
@@ -45,6 +46,7 @@ const Create = (props) => {
 
 
   const removePhoto = () => {
+    setUpdatePhoto(true)
     setForm({
       ...form,
       photo: ""
@@ -154,17 +156,17 @@ const Create = (props) => {
         valuePropName="file"
         getValueFromEvent={normFile}
       >
-        <Upload name="logo" listType="picture">
+        {updatePhoto ? <Upload name="logo" listType="picture">
           <Button icon={<UploadOutlined />}>Click to upload</Button>
-        </Upload>
+        </Upload> : ""}        
+        
       </Form.Item>
 
-      {isEdit && form.photo ? <Thumb>
+      {isEdit && !updatePhoto ? <Thumb>
         <img src={form.photo} alt="thumbnail" />
         <span onClick={removePhoto}>Remover</span>
       </Thumb>
       : "" }
-
 
 
       <Form.Item
