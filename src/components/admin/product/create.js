@@ -140,7 +140,7 @@ const Create = (props) => {
         </Select>
       </Form.Item>
 
-      <Form.Item label="preço">
+      <Form.Item label="Preço">
         <Form.Item name="price" noStyle>
           <InputNumber min={0} max={1000} />
         </Form.Item>
@@ -156,17 +156,19 @@ const Create = (props) => {
         valuePropName="file"
         getValueFromEvent={normFile}
       >
-        {updatePhoto ? <Upload name="logo" listType="picture">
-          <Button icon={<UploadOutlined />}>Click to upload</Button>
-        </Upload> : ""}        
-        
-      </Form.Item>
-
-      {isEdit && !updatePhoto ? <Thumb>
+        {isEdit && !updatePhoto 
+        ? 
+        <Thumb>
         <img src={form.photo} alt="thumbnail" />
         <span onClick={removePhoto}>Remover</span>
-      </Thumb>
-      : "" }
+       </Thumb>
+       :
+       <Upload name="logo" listType="picture">
+          <Button icon={<UploadOutlined />}>Click to upload</Button>
+        </Upload>  
+        }        
+        
+      </Form.Item>      
 
 
       <Form.Item
@@ -189,18 +191,15 @@ const Create = (props) => {
 export default Create
 
 const Thumb = styled.div`
-display: flex; 
-flex-direction: column;
-margin: 2rem 5rem;
 img{
-max-height: 200px;
-max-width: 200px;
+height: 200px !important;
+width: 200px !important;
 }
 span{
+    margin-top: 2rem;
     color:red;
     &:hover{
         cursor:pointer;
-    }
-    
+    }    
 }
 `
