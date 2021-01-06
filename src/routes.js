@@ -12,6 +12,10 @@ import ShoppingCart from './views/user/shopcart'
 import Admin from './views/partner/admin/index'
 
 
+//TESTE
+import OpenProduct from './views/unlogged/products/openProduct'
+
+
  const AuthRoute = ({ ...rest }) => {
     if (!isAuthenticated()) {
         return <Redirect to='/login' />
@@ -23,6 +27,7 @@ const Routers = () => (
     <Router history={history}>
         <Switch>        
         <AuthRoute exact path="/carrinho" component={ShoppingCart} />
+        <Route path="/testando/:productId" component={OpenProduct} /> 
         <Route path="/admin" component={Admin} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />

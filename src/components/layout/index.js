@@ -4,7 +4,6 @@ import { FaHome, FaStoreAlt, FaHammer, FaShoppingCart } from 'react-icons/fa'
 import { GiBrickWall } from 'react-icons/gi'
 import { CgProfile } from 'react-icons/cg'
 import { Link } from 'react-router-dom'
-import history from '../../config/history'
 import Banner from '../home/carousel'
 
 const { Header, Content, Footer } = Layout; 
@@ -17,13 +16,12 @@ const MenuItems = [
     { order: "5", link: "/login", title: "Login", icon: <CgProfile /> },
   ];
 
-const LayoutBase = ({children, banner}) => {
+const LayoutBase = ({children, banner }) => {
 
-  const getCurrent = MenuItems.filter((m) => m.link === history.location.pathname)
   const { Search } = Input;
   const onSearch = value => console.log(value);
 
-
+ 
     return(
         <Layout className="layout">
     <HeaderStyled>
@@ -36,9 +34,7 @@ const LayoutBase = ({children, banner}) => {
       </SearchContainer>
       <MenuStyled 
       theme="dark" 
-      mode="horizontal" 
-      defaultSelectedKeys={['1']} 
-      selectedKeys={[getCurrent[0].order]}>
+      mode="horizontal" >
 
        {MenuItems.map((m) => (
            <Menu.Item key={m.order}>

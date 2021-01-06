@@ -1,4 +1,5 @@
-import { getProduct, createProduct, patchProducts, delProduct} from "../../services/products";
+import { getProduct, createProduct, patchProducts, delProduct, OneProduct} from "../../services/products";
+import { getPartner } from "../../services/partner";
 import { toastr } from 'react-redux-toastr'
 
 export const PRODUCT_LOADING = "PRODUCT_LOADING";
@@ -7,6 +8,8 @@ export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const PATCH_PRODUCT = "PATCH_PRODUCT";
 export const SET_PRODUCTS = "SET_PRODUCTS";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
+export const GET_ONE_PARTNER = "GET_ONE_PARTNER";
 
 
 export const getAllProducts = () => {
@@ -74,3 +77,17 @@ export const deleteProduct = (props) => {
         }
     }
 } 
+
+
+export const getOneProduct = (id) => {
+    return async (dispatch) => {
+        dispatch({ type: PRODUCT_LOADING, status: true })
+        const product = await OneProduct(id)
+        if(product.data){
+        dispatch({ type: GET_ONE_PRODUCT, data: product.data})
+         const partner = await getPartner(product.data.partner._id)
+        if(partner.data){
+        dispatch({ type: GET_ONE_PARTNER, data: partner.data})
+    } }}
+};
+

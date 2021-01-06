@@ -3,12 +3,13 @@ import { LikeOutlined, UserAddOutlined, HeartOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd';
 import styled from 'styled-components'
 import { toastr } from 'react-redux-toastr'
-
+import history from '../../config/history'
 
 const Cards = (props) => {
 
     const notification = () => {
         toastr.info('Toastr notification test')
+        history.push(`/testando/${props.id}`)
     }
 
     return (
