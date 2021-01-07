@@ -9,7 +9,7 @@ const Cards = (props) => {
 
     const notification = () => {
         toastr.info('Toastr notification test')
-        history.push(`/testando/${props.id}`)
+        history.push(`/produtos/${props.id}`)
     }
 
     return (

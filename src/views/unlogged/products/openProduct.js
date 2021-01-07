@@ -25,14 +25,22 @@ const OpenProduct = () => {
         }
     }, [dispatch, productId, update])
 
+    const falsePrice = (props) => {
+        return Math.round(props*1.2)        
+    }
+    const part = (props) => {
+        return Math.round(props/12)
+    }
+
 
     const other = () => {
         if (onePartner.products) {            
-            return onePartner.products.map((item, i) => (
+            return onePartner.products.slice(0,3).map((item, i) => (
                 <Col key={i} span={8}>
                     <Card title={item.title} bordered={false}>
                         <ProductImage
-                            src={item.photo}
+                        preview={false}
+                        src={item.photo}
                         />
                     </Card>
                 </Col>
@@ -47,7 +55,8 @@ const OpenProduct = () => {
             <Content>
                 <Main>
                     <ProductCard >
-                        <ProductImage
+                        <ProductImage 
+                            width={'60%'}
                             src={OneProduct.photo}
                         />
                     </ProductCard>
@@ -74,8 +83,14 @@ const OpenProduct = () => {
                 </Main>
                 <Secondary>
 
-                    <PriceCard title="Produto" >
-                        <h2>R$ {OneProduct.price}</h2>
+                    <TitleCard  >
+                        <h2>{OneProduct.title}</h2>                        
+                    </TitleCard> 
+                    <br />
+                    <PriceCard title="Opções de compra" >
+                        <h3>De <s>R$ {falsePrice(OneProduct.price)}</s></h3>
+                        <h2>Por R$ {OneProduct.price} !</h2>
+                        <h3>ou em 12x de R$ {part(OneProduct.price)} sem juros</h3>
                         <br />
                         <Button type="primary" > Adicionar ao carrinho </Button>
                     </PriceCard>
@@ -123,8 +138,13 @@ const Secondary = styled(Col)`
 h2{
 font-size: 60px;
 display: flex;
-    flex-direction: column;
-    align-items: center;
+flex-direction: column;
+align-items: center;
+}
+h3{
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 width: 40%;
 min-height: 100vh;
@@ -164,7 +184,10 @@ const PriceCard = styled(Card)`
 min-width: 100%;
 `
 
+const TitleCard = styled(Card)`
+min-width: 100%;
+`
+
 const ProductImage = styled(Image)`
 display: block !important;
-width: 100%;
 `

@@ -41,7 +41,7 @@ const Signup = () => {
                     type="link"
                     block
                 >                        
-                voltar                           
+                Voltar                           
                 </Button>}
 
                     

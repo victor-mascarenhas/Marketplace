@@ -3,11 +3,34 @@ import styled from 'styled-components'
 import { GiBrickWall } from 'react-icons/gi'
 import { FiPower } from 'react-icons/fi'
 import Sider from '../../components/admin/menu'
+import { removeToken } from "../../config/auth";
+import { AiOutlineProfile } from 'react-icons/ai'
+import { FaHome, FaStoreAlt, FaHammer} from 'react-icons/fa'
+import history from '../../config/history'
+import { Link } from 'react-router-dom'
+
 
 const { Header, Content, Footer } = Layout;
 
 
+const MenuItems = [
+  { order: "1", link: "/", title: "Home", icon: <FaHome /> },
+  { order: "2", link: "/produtos", title: "Produtos", icon: <FaHammer /> },
+  { order: "3", link: "/parceiros", title: "Parceiros", icon: <FaStoreAlt /> },
+  { order: "5", link: "/admin", title: "Painel", icon: <AiOutlineProfile /> },
+];
+
+
 const LayoutAdmin = ({ children, menu }) => {
+  
+
+  const getCurrent = MenuItems.filter(
+    (item) => item.link === history.location.pathname
+  )[0]
+
+  const HandleLogout = () => {
+    removeToken();
+  }
 
 
   return (
@@ -22,12 +45,22 @@ const LayoutAdmin = ({ children, menu }) => {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['1']}
+          selectedKeys={[getCurrent?.order || ""]}
         >
 
-          <Menu.Item key={10}>
-            {" "}
+          {MenuItems.map((m) => (
+            <Menu.Item key={m.order}>
+              <Link to={m.link}>
+                {m.icon} {m.title}
+              </Link>
+            </Menu.Item>
+          ))}          
+
+          <Menu.Item key={10} onClick={HandleLogout}>
+          <a href="/">
             <FiPower /> Sair
-                    </Menu.Item>
+            </a>
+          </Menu.Item>
 
         </MenuStyled>
       </HeaderStyled>
