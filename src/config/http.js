@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getToken } from "./auth";
+import { getToken, removeToken } from "./auth";
+import history from './history'
 
 // Instância do cliente HTTP para as requisições
 const http = axios.create({
@@ -25,8 +26,8 @@ http.interceptors.response.use(
     switch (error?.response?.status) {
       case 401:
         console.log("Token inválido...");
-        /* removeToken();
-        history.push("/login"); */
+        removeToken();
+        history.push("/login");
         break;
       case 404:
         console.log("Pagina não encontrada...");

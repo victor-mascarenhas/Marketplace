@@ -1,12 +1,11 @@
 import { List } from 'antd';
 import React from 'react'
 import { IoOpen } from 'react-icons/io5'
-import { FiEdit } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 import styled from 'styled-components'
 
 
-const ListItem = ({product, isEdit, delProduct}) => {
+const ListItem = ({product, removeProduct}) => {
 
         
     return (
@@ -14,9 +13,8 @@ const ListItem = ({product, isEdit, delProduct}) => {
         <List.Item
             key={product.key}
             actions={[
-                <Logo><IoOpen/></Logo>,
-                <Logo onClick={() => isEdit(product)}> <FiEdit /></Logo>,
-                <Logo onClick={() => delProduct(product)}> <FaTrash /></Logo>,
+                <Logo><IoOpen/> Visualizar </Logo>,
+                <Logo onClick={() => removeProduct(product)}> <FaTrash /> Remover </Logo>,
             ]}
             extra={
                 <img
@@ -41,6 +39,7 @@ export default ListItem
 
 const Logo = styled.div`
 svg{
+    cursor: pointer;
     margin-top: 5px;
     margin-bottom: -5px;
     font-size: 20px;

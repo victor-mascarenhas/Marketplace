@@ -8,13 +8,15 @@ import SignReducer from './sign/reducer.sign'
 import ProductReducer from './product/product.reducer'
 import PartnerReducer from './partner/partner.reducer'
 import CategoryReducer from './category/category.reducer'
+import UserReducer from './user/user.reducer'
 
 const reducers = combineReducers({
     auth: SignReducer,
     toastr: toastrReducer,
     product: ProductReducer,
     partner: PartnerReducer,
-    category: CategoryReducer
+    category: CategoryReducer,
+    user: UserReducer
 });
 
 const middleware = [thunk, multi];

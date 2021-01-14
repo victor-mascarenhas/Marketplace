@@ -2,13 +2,11 @@ import { Card } from 'antd';
 import { LikeOutlined, UserAddOutlined, HeartOutlined } from '@ant-design/icons';
 import { Tooltip } from 'antd';
 import styled from 'styled-components'
-import { toastr } from 'react-redux-toastr'
 import history from '../../config/history'
 
 const Cards = (props) => {
 
-    const notification = () => {
-        toastr.info('Toastr notification test')
+    const forward = () => {
         history.push(`/produtos/${props.id}`)
     }
 
@@ -23,13 +21,13 @@ const Cards = (props) => {
             }
             actions={[
                 <Tooltip placement="top" title="Curtir" arrowPointAtCenter>
-                    <LikeOutlined onClick={notification} />
+                    <LikeOutlined onClick={forward} />
                 </Tooltip>,
                 <Tooltip placement="top" title="Adicionar" arrowPointAtCenter>
-                    <UserAddOutlined onClick={notification} />
+                    <UserAddOutlined onClick={forward} />
                 </Tooltip>,
                 <Tooltip placement="top" title="Favoritar" arrowPointAtCenter>
-                    <HeartOutlined onClick={notification} />
+                    <HeartOutlined onClick={forward} />
                 </Tooltip>,
             ]}
         >

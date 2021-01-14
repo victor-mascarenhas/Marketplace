@@ -4,6 +4,7 @@ import FormProducts from '../../../components/admin/product/create'
 import FormCategory from '../../../components/admin/category/create'
 import ListCategory from '../../../components/admin/category/list'
 import { Route } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const MenuAdmin = [
     {
@@ -42,10 +43,12 @@ const MenuAdmin = [
 
 const Admin = (props) => {
 
+    const partner = useSelector((state) => state.auth.user.name) 
+
 
     return (
         <LayoutAdmin menu={MenuAdmin}>
-            <h1> brabo </h1>
+            <h1> {partner} </h1>
             {MenuAdmin.map((item, i) => (
                 <Route key={i} exact path={props.match.path + item.path} component={item.component} />
             ))}

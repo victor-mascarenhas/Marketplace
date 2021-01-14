@@ -3,6 +3,7 @@ import authService from '../../services/auth'
 import { createUser } from '../../services/signup'
 import history from '../../config/history'
 import { toastr } from 'react-redux-toastr'
+import http from "../../config/http";
 
 export const SIGN = "SIGN";
 export const SIGN_LOADING = "SIGN_LOADING";
@@ -15,6 +16,7 @@ export const signIn = (props) => {
             const { data } = await authService(props)
             dispatch({ type: SIGN, data: data })
             saveLocalStorage(data)
+            http.defaults.headers["x-auth-token"] = data.token;
             history.push('/')
         } catch (error) {
             console.log(error.message)

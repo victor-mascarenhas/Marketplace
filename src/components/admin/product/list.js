@@ -87,15 +87,6 @@ return (
     renderItem={item => (
 
       <ListItem
-      /* key={item.key}
-      photo={item.photo}
-      title={item.title}
-      description={item.description}
-      category={item.category.name}
-      partner={item.partner}
-      highlight={item.highlight}
-      price={item.price}
-      status={item.status} */
       product={item}
       isEdit={isEdit}
       delProduct={delProduct}

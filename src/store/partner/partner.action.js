@@ -1,7 +1,7 @@
 import { getPartner } from "../../services/partner";
 
-export const PARTNER_LOADING = "PRODUCT_LOADING";
-export const GET_PARTNER = "GET_PRODUCTS";
+export const PARTNER_LOADING = "PARTNER_LOADING";
+export const GET_PARTNER = "GET_PARTNER";
 
 
 export const getPartnerProducts = (id) => {   
