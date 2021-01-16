@@ -3,6 +3,7 @@ import ListProducts from '../../../components/admin/product/list'
 import FormProducts from '../../../components/admin/product/create'
 import FormCategory from '../../../components/admin/category/create'
 import ListCategory from '../../../components/admin/category/list'
+import Profile from '../../../components/admin/config/profile'
 import { Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -34,6 +35,13 @@ const MenuAdmin = [
         path: '/product/create',
         icon: "",
         component: () => <FormProducts/>
+    },
+    {
+        sub: "config",
+        name: "Suas Informações",
+        path: '/',
+        icon: "",
+        component: () => <Profile/>
     }
 ]
 
@@ -44,6 +52,7 @@ const MenuAdmin = [
 const Admin = (props) => {
 
     const partner = useSelector((state) => state.auth.user.name) 
+    
 
 
     return (

@@ -25,12 +25,12 @@ import Swal from 'sweetalert2'
     const removeFromCart = (props) => { 
       Swal.fire({
         title: 'Você tem certeza?',
-        text: "Você não poderá desfazer esta ação!",
+        text: `Deseja remover ${props.title}?` ,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Excluir!'
+        confirmButtonText: 'Remover!'
       }).then((result) => {
         if (result.isConfirmed) {
           dispatch(removeProduct({id: props._id}))          

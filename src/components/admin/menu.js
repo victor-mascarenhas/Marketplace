@@ -9,7 +9,7 @@ const { SubMenu } = Menu;
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 
 const Sider = ({menu}) => {
-  const [openKeys, setOpenKeys] = useState(['sub1']);
+  const [openKeys, setOpenKeys] = useState(['sub3']);
 
   const onOpenChange = keys => {
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
@@ -22,6 +22,7 @@ const Sider = ({menu}) => {
 
   const subMenucat = menu.filter(item => item.sub === 'category')
   const subMenuprod = menu.filter(item => item.sub === 'product')
+  const subMenuconfig = menu.filter(item => item.sub === 'config')
 
   return (
     <Menu mode="inline" openKeys={openKeys} onOpenChange={onOpenChange} style={{ width: 256 }}>
@@ -48,11 +49,15 @@ const Sider = ({menu}) => {
                 ))}
        
       </SubMenu>
-      <SubMenu key="sub4" icon={<SettingOutlined />} title="Configurações">
-        <Menu.Item key="9">Option 9</Menu.Item>
-        <Menu.Item key="10">Option 10</Menu.Item>
-        <Menu.Item key="11">Option 11</Menu.Item>
-        <Menu.Item key="12">Option 12</Menu.Item>
+      <SubMenu key="sub3" icon={<SettingOutlined />} title="Configurações">
+      {subMenuconfig.map((item,i) => (
+                    <Menu.Item key={i}>                    
+                        <Link to={'/admin' + item.path}>                            
+                                {item.icon ? item.icon : ""}
+                                <span>{item.name}</span>
+                        </Link>                    
+                    </Menu.Item>
+                ))}
       </SubMenu>
     </Menu>
   );

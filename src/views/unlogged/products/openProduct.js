@@ -98,7 +98,7 @@ const OpenProduct = () => {
                     <br />
                     <PartnerCard title="Vendido e entregue por:" >
                         <PartnerImage
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            src={onePartner.photo}
                         />
                         <h3>{onePartner.name}</h3>
                     </PartnerCard>
