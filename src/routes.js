@@ -4,7 +4,7 @@ import { isAuthenticated } from './config/auth'
 
 //Views
 import Home from './views/unlogged/home'
-import Partners from './views/unlogged/partners'
+import Partners from './views/unlogged/partners/'
 import Products from './views/unlogged/products/'
 import Login from './views/sign/login'
 import Signup from './views/sign/signup'
@@ -28,7 +28,7 @@ const Routers = () => (
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route path="/produtos" component={Products} />
-        <Route exact path="/parceiros" component={Partners} />
+        <Route path="/parceiros" component={Partners} />
         <Route exact path="/" component={Home} />        
         </Switch>
     </Router>

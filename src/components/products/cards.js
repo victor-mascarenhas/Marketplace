@@ -1,5 +1,6 @@
 import { Card } from 'antd';
-import { LikeOutlined, UserAddOutlined, HeartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { IoOpen } from 'react-icons/io5'
 import { Tooltip } from 'antd';
 import styled from 'styled-components'
 import history from '../../config/history'
@@ -20,21 +21,18 @@ const Cards = (props) => {
                 />
             }
             actions={[
-                <Tooltip placement="top" title="Curtir" arrowPointAtCenter>
-                    <LikeOutlined onClick={forward} />
+                <Tooltip placement="top" title="Visitar!" arrowPointAtCenter>
+                   <Logo> <IoOpen onClick={forward} /> </Logo> 
                 </Tooltip>,
-                <Tooltip placement="top" title="Adicionar" arrowPointAtCenter>
-                    <UserAddOutlined onClick={forward} />
-                </Tooltip>,
-                <Tooltip placement="top" title="Favoritar" arrowPointAtCenter>
-                    <HeartOutlined onClick={forward} />
+                <Tooltip placement="top" title="Adicionar ao Carrinho" arrowPointAtCenter>
+                   <Logo> <ShoppingCartOutlined onClick={forward} /> </Logo>
                 </Tooltip>,
             ]}
         >
             <Title size="18">{props.title}</Title>
-            <Title size="12">{props.partner}</Title>
-            <Title size="12">{props.category}</Title>
-            <Title size="12">{props.price}</Title>
+            <Desc size="12">{props.partner}</Desc>
+            <Desc size="12">{props.category}</Desc>
+            <Price size="20">R$ {props.price}</Price>
         </StyledCard>
     )
 };
@@ -48,9 +46,25 @@ border: thin solid #e7e7e7;
   img{
       max-width: 300px !important;
       max-height: 240px !important;
-  }
-`
+  }`
 
 const Title = styled.div`
 font-size: ${props => props.size + 'px' || '12px'};
+text-align: center;
+padding: 10px;
+`
+const Desc = styled.div`
+font-size: ${props => props.size + 'px' || '12px'};
+text-align: left;
+`
+
+const Price = styled.div`
+font-size: ${props => props.size + 'px' || '12px'};
+text-align: right;
+`
+
+const Logo = styled.div`
+svg{
+    font-size: 20px;
+}
 `

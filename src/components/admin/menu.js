@@ -40,7 +40,7 @@ const Sider = ({menu}) => {
       <SubMenu key="sub2" icon={<ShoppingCartOutlined />} title="Produtos">
         
       {subMenuprod.map((item,i) => (
-                    <Menu.Item key={i}>                    
+                    <Menu.Item key={i + 10}>                    
                         <Link to={'/admin' + item.path}>                            
                                 {item.icon ? item.icon : ""}
                                 <span>{item.name}</span>
@@ -51,7 +51,7 @@ const Sider = ({menu}) => {
       </SubMenu>
       <SubMenu key="sub3" icon={<SettingOutlined />} title="Configurações">
       {subMenuconfig.map((item,i) => (
-                    <Menu.Item key={i}>                    
+                    <Menu.Item key={i + 20}>                    
                         <Link to={'/admin' + item.path}>                            
                                 {item.icon ? item.icon : ""}
                                 <span>{item.name}</span>

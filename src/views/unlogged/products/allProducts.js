@@ -1,65 +1,130 @@
 import BaseLayout from '../../../components/layout'
-import Sider from '../../../components/products/sideMenu'
 import Card from '../../../components/products/cards'
 import styled from 'styled-components'
-import { Layout, Col } from 'antd'
+import { Layout, Col, Menu } from 'antd'
 import { getAllProducts } from '../../../store/product/product.action'
+import { getAllCategories } from '../../../store/category/category.action'
+import { MailOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../../components/loading'
 
 const { Content } = Layout
+const { SubMenu } = Menu;
 
 const Products = () => {
-  const dispatch = useDispatch()
-  const [update, setUpdate] = useState(false)
+
   const loading = useSelector((state) => state.product.loading)
   const allProducts = useSelector((state) => state.product.all)
+  const allCategories = useSelector((state) => state.category.all)
+
+  const dispatch = useDispatch()
+  const [update, setUpdate] = useState(false)
+  const [menuFilter, setMenuFilter] = useState(false)
+  const [category, setCategory] = useState({})
+
+  const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+  const [openKeys, setOpenKeys] = useState(['sub1']);
+
+  const onOpenChange = keys => {
+    const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
+    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+      setOpenKeys(keys);
+    } else {
+      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+    }
+  };
 
   useEffect(() => {
     dispatch(getAllProducts())
-    if(update){
-    setUpdate(false)
+    dispatch(getAllCategories())
+    if (update) {
+      setUpdate(false)
     }
   }, [dispatch, update])
 
-  const mountPost = () => {
+  const setFilter = (props) => {
+    setCategory(props)
+    setMenuFilter(true)
+  }
 
-    if (allProducts) {
-     return allProducts.map((item, i) => (
-        <Card
-        key={i}
-        id={item._id}
-        photo={item.photo}
-        title={item.title}
-        description={item.description}
-        category={item.category.name}
-        partner={item.partner.name}
-        highlight={item.highlight}
-        price={item.price}
-        status={item.status}
-        />
-      ));
-    }
-    return;
+  const mountProducts = (props) => {
+    const prods = allProducts.filter(item => item.category._id === props._id)
+
+    if(!menuFilter){
+      return (
+        <CardBox>
+          {
+             allProducts.map((item, i) =>
+             <Card
+               key={i}
+               id={item._id}
+               photo={item.photo}
+               title={item.title}
+               description={item.description}
+               category={item.category.name}
+               partner={item.partner.name}
+               highlight={item.highlight}
+               price={item.price}
+               status={item.status}
+             />
+         )
+          }
+        </CardBox>
+      )
+    }else{
+      return (
+        <CardBox>
+          {
+            prods.length === 0
+              ? <h1> Nenhum produto cadastrado </h1>
+              : (
+                prods.map((item, i) =>
+                  <Card
+                    key={i}
+                    id={item._id}
+                    photo={item.photo}
+                    title={item.title}
+                    description={item.description}
+                    category={item.category.name}
+                    partner={item.partner.name}
+                    highlight={item.highlight}
+                    price={item.price}
+                    status={item.status}
+                  />
+                )
+              )
+          }
+        </CardBox>
+      )
+    }   
   }
 
 
   return (
-    <BaseLayout banner={true}> 
-    <h1> Produtos </h1>
-    <Main>
-    <ContainerMenu span={4}>    
-    <Sider/>  
-    </ContainerMenu> 
-    <CardContainer span={20}> 
-    <CardBox>          
-    {loading ? 
-      <Loading /> 
-      : mountPost()}         
-          </CardBox>
-    </CardContainer> 
-    </Main>
+    <BaseLayout banner={true}>
+      <h1> Produtos </h1>
+      <Main>
+        <ContainerMenu span={5}>
+          <Menu mode="inline" openKeys={openKeys} onOpenChange={onOpenChange} style={{ width: 256 }} defaultOpenKeys={['sub1']} defaultSelectedKeys={["item1"]} >
+            <SubMenu key="sub1" icon={<MailOutlined />} title="Categorias" >
+            <Menu.Item key={['item1']} onClick={() => setMenuFilter(false)}>
+                Todos os Produtos
+                </Menu.Item>
+              {allCategories.map((item, i) => (
+                <Menu.Item key={i} onClick={() => setFilter(item)}>
+                  {item.name}
+                </Menu.Item>
+              ))}              
+            </SubMenu>
+          </Menu>
+        </ContainerMenu>
+        <CardContainer span={19}>
+          {loading ?
+            <Loading />
+            : mountProducts(category)}
+        </CardContainer>
+      </Main>
     </BaseLayout>
   );
 }

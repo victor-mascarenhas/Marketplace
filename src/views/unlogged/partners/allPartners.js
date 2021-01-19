@@ -1,43 +1,36 @@
 import BaseLayout from '../../../components/layout'
-import Sider from '../../../components/products/sideMenu'
-import Card from '../../../components/products/cards'
+import Card from '../../../components/partners/cards'
 import styled from 'styled-components'
-import { Layout, Col } from 'antd'
-import { getAllProducts } from '../../../store/product/product.action'
+import Loading from '../../../components/loading'
+import { AllPartners } from '../../../store/partner/partner.action'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Loading from '../../../components/loading'
 
-const { Content } = Layout
-
-const Products = () => {
+const Partners = () => {
   const dispatch = useDispatch()
   const [update, setUpdate] = useState(false)
-  const loading = useSelector((state) => state.product.loading)
-  const allProducts = useSelector((state) => state.product.all)
+  const loading = useSelector((state) => state.partner.loading)
+  const parceiros = useSelector((state) => state.partner.all)
 
   useEffect(() => {
-    dispatch(getAllProducts())
+    dispatch(AllPartners())
     if(update){
     setUpdate(false)
     }
   }, [dispatch, update])
 
+
   const mountPost = () => {
 
-    if (allProducts) {
-     return allProducts.map((item, i) => (
+    if (parceiros) {
+     return parceiros.map((item, i) => (
         <Card
         key={i}
         id={item._id}
         photo={item.photo}
-        title={item.title}
-        description={item.description}
-        category={item.category.name}
-        partner={item.partner.name}
-        highlight={item.highlight}
-        price={item.price}
-        status={item.status}
+        name={item.name}
+        email={item.email}
+        products={item.products}                
         />
       ));
     }
@@ -46,44 +39,25 @@ const Products = () => {
 
 
   return (
-    <BaseLayout banner={true}> 
-    <h1> Produtos </h1>
-    <Main>
-    <ContainerMenu span={4}>    
-    <Sider/>  
-    </ContainerMenu> 
-    <CardContainer span={20}> 
+    <BaseLayout banner={true} >
+    <h1> Lojas Parceiras </h1>
     <CardBox>          
     {loading ? 
       <Loading /> 
-      : mountPost()}         
+      : mountPost()}          
           </CardBox>
-    </CardContainer> 
-    </Main>
     </BaseLayout>
   );
 }
 
-export default Products;
+export default Partners;
 
-const Main = styled(Content)`
-display: flex;
-`
 
-const ContainerMenu = styled(Col)`
-  padding: 20px;
-`
-
-const CardContainer = styled(Col)`
-padding: 20px;
-`
 const CardBox = styled.div`
+  margin: 1rem 5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 290px));
   grid-auto-rows: auto;
   grid-gap: 1rem;
   overflow-y: auto;  
 `
-
-
-

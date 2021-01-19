@@ -1,194 +1,119 @@
-import BaseLayout from '../../../components/layout'
+import BaseLayout from '../../../components/layout/'
+import Card from '../../../components/products/cards'
 import styled from 'styled-components'
-import { Col, Image, Descriptions, Card, Button, Row } from 'antd'
-import { getOneProduct } from '../../../store/product/product.action'
+import { Layout, Col, Image } from 'antd'
+import { getOnePartner } from '../../../store/partner/partner.action'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../../components/loading'
-import { addProduct } from '../../../store/user/user.action'
-
-const OpenProduct = () => {
 
 
-    const dispatch = useDispatch()
-    const { productId } = useParams()
-    const [update, setUpdate] = useState(false)
 
-    const loading = useSelector((state) => state.product.loading)
-    const OneProduct = useSelector((state) => state.product.product)
-    const onePartner = useSelector((state) => state.product.partner)
+const { Content } = Layout
 
-    useEffect(() => {
-        dispatch(getOneProduct(productId))
-        if (update) {
-            setUpdate(false)
-        }
-    }, [dispatch, productId, update])
+const OpenPartner = () => {
 
-    const falsePrice = (props) => {
-        return Math.round(props*1.2)        
+  const dispatch = useDispatch()
+  const { partnerId } = useParams()
+  const [update, setUpdate] = useState(false)
+  const loading = useSelector((state) => state.product.loading)
+  const partnerProducts = useSelector((state) => state.partner.partner.products)
+  const partner = useSelector((state) => state.partner.partner)
+
+  useEffect(() => {
+    dispatch(getOnePartner(partnerId))
+    if (update) {
+      setUpdate(false)
     }
+  }, [dispatch, partnerId, update])
 
-    const addToCart = (_id) => dispatch(addProduct({ id: _id }))
-    
+  const mountProducts = () => {
 
-
-    const other = () => {
-        if (onePartner.products) {            
-            return onePartner.products.slice(0,3).map((item, i) => (
-                <Col key={i} span={8}>
-                    <Card title={item.title} bordered={false}>
-                        <ProductImage
-                        preview={false}
-                        src={item.photo}
-                        />
-                    </Card>
-                </Col>
-            ))
-        }
-        return;
+    if (partnerProducts) {
+      return partnerProducts.map((item, i) => (
+        <Card
+          key={i}
+          id={item._id}
+          photo={item.photo}
+          title={item.title}
+          description={item.description}
+          category={item.category.name}
+          partner={item.partner.name}
+          highlight={item.highlight}
+          price={item.price}
+          status={item.status}
+        />
+      ));
     }
+    return;
+  }
 
+  return (
+    <BaseLayout banner={false}>
 
-    return (
-        <BaseLayout>
-            <Content>
-                <Main>
-                    <ProductCard >
-                        <ProductImage 
-                            width={'60%'}
-                            src={OneProduct.photo}
-                        />
-                    </ProductCard>
-                    <br />
-                    <Card>
-                        <Descriptions title="Descrição do produto">
-                            <Descriptions.Item >{OneProduct.description}</Descriptions.Item>
-                        </Descriptions>
-                    </Card>
-                    <br />
-                    <hr />
-                    <h1>Outros produtos deste vendedor </h1>
-                    <hr />
-                    <br />
-
-                    <MoreProducts className="site-card-wrapper">
-                        <Row gutter={16}>
-                        {loading ? 
-                        <Loading /> 
-                        : other()}
-                        </Row>
-                    </MoreProducts>
-
-                </Main>
-                <Secondary>
-
-                    <TitleCard  >
-                        <h2>{OneProduct.title}</h2>                        
-                    </TitleCard> 
-                    <br />
-                    <PriceCard title="Opções de compra" >
-                        <h3>De <s>R$ {falsePrice(OneProduct.price)}</s></h3>
-                        <h2>Por R$ {OneProduct.price} !</h2>
-                        <h3>ou em 12x de R$ {(OneProduct.price/12).toFixed(2)} sem juros</h3>
-                        <br />
-                        <Button type="primary" onClick={() => addToCart(OneProduct._id)} > Adicionar ao carrinho </Button>
-                    </PriceCard>
-                    <br />
-                    <PartnerCard title="Vendido e entregue por:" >
-                        <PartnerImage
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                        />
-                        <h3>{onePartner.name}</h3>
-                    </PartnerCard>
-
-
-                </Secondary>
-            </Content>
-
-        </BaseLayout>
-    )
+      <Main>
+        <ContainerMenu span={4}>
+          <PartnerImage
+            preview={false}
+            src={partner.photo}
+          />
+          <h1>{partner.name}</h1>
+        </ContainerMenu>
+        <CardContainer span={20}>
+        <ContainerTitle>
+          <Title>Todos os Produtos</Title>
+          </ContainerTitle>          
+          <CardBox>
+            {loading ?
+              <Loading />
+              : mountProducts()}
+          </CardBox>
+        </CardContainer>
+      </Main>
+    </BaseLayout>
+  )
 }
 
+export default OpenPartner
 
-export default OpenProduct
+const Main = styled(Content)`
+display: flex;
+`
 
-
-const Main = styled(Col)`
-width: 60%;
-min-height: 100vh;
+const ContainerMenu = styled(Col)`
 padding: 20px;
-background-color: whitesmoke;
-hr{
-    display: block;
-    margin-left: auto;
-    margin-right: auto ;
-    width:15vw; 
-}
-h1{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-`
-const MoreProducts = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+background: #6BB38E;
+min-height: 80vh;
+font-size: 20px;
+font-weight: 600;
 `
 
-const Secondary = styled(Col)`
-h2{
-font-size: 60px;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-h3{
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-width: 40%;
-min-height: 100vh;
-margin-left: auto;
-margin-right: auto ;
-display: flex;
-flex-direction: column;
-align-items: center;
+const CardContainer = styled(Col)`
 padding: 20px;
-background-color: whitesmoke;
-button{
-font-size: 16px;
-min-height: 4rem !important;
-display: block !important;
-margin-left: auto !important;
-margin-right: auto !important;
-}
 `
-
-const Content = styled.div`
-display: flex;
+const CardBox = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 290px));
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+  overflow-y: auto;  
 `
 
 const PartnerImage = styled(Image)`
 display: block !important;
-margin-left: 5rem !important;
-margin-right: auto !important ;
-width: 60%;
 `
 
-const PartnerCard = styled(Card)`
-min-width: 100%;
+const ContainerTitle = styled.div`
+padding: 3rem 1rem;
+width: 100%;
 `
-const ProductCard = styled(Card)`
-`
-const PriceCard = styled(Card)`
-min-width: 100%;
-`
-
-const TitleCard = styled(Card)`
-min-width: 100%;
+const Title = styled.div`
+font-size: 30px;
+font-weight: 600;
+text-align: center; 
 `
 
-const ProductImage = styled(Image)`
-display: block !important;
-`

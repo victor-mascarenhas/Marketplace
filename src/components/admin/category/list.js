@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { List, Button, Modal } from 'antd';
+import { List, Button, Modal, Tooltip } from 'antd';
 import { getAllCategories, setCategory, deleteCategory } from '../../../store/category/category.action'
 import styled from 'styled-components'
 import { FaTrash } from 'react-icons/fa'
@@ -81,8 +81,12 @@ const delCategory = (props) => {
         renderItem={item =>
           <List.Item>
             <Cat>{item.name}</Cat>
+            <Tooltip placement="top" title="Editar" arrowPointAtCenter>
             <Button onClick={() => isEdit(item)} > <FiEdit /> </Button>
+            </Tooltip>
+            <Tooltip placement="top" title="Excluir" arrowPointAtCenter>
             <Button onClick={() => delCategory(item)} > <FaTrash /> </Button>
+            </Tooltip>
           </List.Item>}
       />
     </>

@@ -1,10 +1,20 @@
-import { getPartner, patchPartner } from "../../services/partner";
+import { getPartner, patchPartner, getAllPartners } from "../../services/partner";
 import { toastr } from 'react-redux-toastr'
 
 export const PARTNER_LOADING = "PARTNER_LOADING";
 export const GET_PARTNER = "GET_PARTNER";
+export const GET_ALL_PARTNERS = "GET_ALL_PARTNERS";
 export const GET_PARTNER_PRODUCTS = "GET_PARTNER_PRODUCTS";
 export const PATCH_PARTNER = "PATCH_PARTNER";
+
+
+export const AllPartners = () => {
+    return async (dispatch) => {
+        dispatch({ type: PARTNER_LOADING, status: true })
+        const partners = await getAllPartners()
+        dispatch({ type: GET_ALL_PARTNERS, data: partners.data })
+    }
+};
 
 
 export const getPartnerProducts = (id) => {   

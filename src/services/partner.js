@@ -6,6 +6,9 @@ const getPartner = (id) => {
 
 const patchPartner = (data) => http.patch(`/partner`, data)
 
+const getAllPartners = () => {
+    return http.get('/partner')
+}
 
 
-export { getPartner, patchPartner }
+export { getPartner, patchPartner, getAllPartners }

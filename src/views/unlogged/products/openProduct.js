@@ -1,12 +1,13 @@
 import BaseLayout from '../../../components/layout'
 import styled from 'styled-components'
-import { Col, Image, Descriptions, Card, Button, Row } from 'antd'
+import { Col, Image, Descriptions, Card, Button, Row, Tooltip } from 'antd'
 import { getOneProduct } from '../../../store/product/product.action'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Loading from '../../../components/loading'
 import { addProduct } from '../../../store/user/user.action'
+import history from '../../../config/history'
 
 const OpenProduct = () => {
 
@@ -27,21 +28,29 @@ const OpenProduct = () => {
     }, [dispatch, productId, update])
 
     const falsePrice = (props) => {
-        return Math.round(props*1.2)        
+        return Math.round(props * 1.2)
     }
 
     const addToCart = (_id) => dispatch(addProduct({ id: _id }))
-    
+
+
+    const forward = (props) => {
+        history.push(`/parceiros/${props}`)
+    }
+    const forwardProduct = (props) => {
+        history.push(`/produtos/${props}`)
+    }
 
 
     const other = () => {
-        if (onePartner.products) {            
-            return onePartner.products.slice(0,3).map((item, i) => (
+        if (onePartner.products) {
+            return onePartner.products.slice(0, 3).map((item, i) => (
                 <Col key={i} span={8}>
                     <Card title={item.title} bordered={false}>
                         <ProductImage
-                        preview={false}
-                        src={item.photo}
+                            preview={false}
+                            src={item.photo}
+                            onClick={() => forwardProduct(item._id)}
                         />
                     </Card>
                 </Col>
@@ -56,7 +65,7 @@ const OpenProduct = () => {
             <Content>
                 <Main>
                     <ProductCard >
-                        <ProductImage 
+                        <ProductImage
                             width={'60%'}
                             src={OneProduct.photo}
                         />
@@ -75,9 +84,9 @@ const OpenProduct = () => {
 
                     <MoreProducts className="site-card-wrapper">
                         <Row gutter={16}>
-                        {loading ? 
-                        <Loading /> 
-                        : other()}
+                            {loading ?
+                                <Loading />
+                                : other()}
                         </Row>
                     </MoreProducts>
 
@@ -85,21 +94,24 @@ const OpenProduct = () => {
                 <Secondary>
 
                     <TitleCard  >
-                        <h2>{OneProduct.title}</h2>                        
-                    </TitleCard> 
+                        <h2>{OneProduct.title}</h2>
+                    </TitleCard>
                     <br />
                     <PriceCard title="Opções de compra" >
                         <h3>De <s>R$ {falsePrice(OneProduct.price)}</s></h3>
                         <h2>Por R$ {OneProduct.price} !</h2>
-                        <h3>ou em 12x de R$ {(OneProduct.price/12).toFixed(2)} sem juros</h3>
+                        <h3>ou em 12x de R$ {(OneProduct.price / 12).toFixed(2)} sem juros</h3>
                         <br />
                         <Button type="primary" onClick={() => addToCart(OneProduct._id)} > Adicionar ao carrinho </Button>
                     </PriceCard>
                     <br />
                     <PartnerCard title="Vendido e entregue por:" >
-                        <PartnerImage
-                            src={onePartner.photo}
-                        />
+                        <Tooltip placement="bottom" title="Visitar!" arrowPointAtCenter>
+                            <PartnerImage
+                                src={onePartner.photo}
+                                onClick={() => forward(onePartner._id)}
+                            />
+                        </Tooltip>
                         <h3>{onePartner.name}</h3>
                     </PartnerCard>
 
@@ -174,6 +186,7 @@ display: block !important;
 margin-left: 5rem !important;
 margin-right: auto !important ;
 width: 60%;
+cursor: pointer;
 `
 
 const PartnerCard = styled(Card)`
