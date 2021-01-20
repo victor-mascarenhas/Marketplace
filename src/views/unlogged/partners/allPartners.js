@@ -39,7 +39,7 @@ const Partners = () => {
 
 
   return (
-    <BaseLayout banner={true} >
+    <BaseLayout banner={false} >
     <h1> Lojas Parceiras </h1>
     <CardBox>          
     {loading ? 

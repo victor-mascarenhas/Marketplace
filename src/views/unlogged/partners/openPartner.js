@@ -30,7 +30,7 @@ const OpenPartner = () => {
 
   const mountProducts = () => {
 
-    if (partnerProducts) {
+    if (partnerProducts && partnerProducts.length > 0) {
       return partnerProducts.map((item, i) => (
         <Card
           key={i}
@@ -46,7 +46,9 @@ const OpenPartner = () => {
         />
       ));
     }
-    return;
+    return (
+      <h1> Nenhum produto cadastrado </h1>
+    )
   }
 
   return (
@@ -86,10 +88,13 @@ padding: 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
-background: #6BB38E;
+background: #001529;
 min-height: 80vh;
 font-size: 20px;
 font-weight: 600;
+h1{
+  color: white;
+}
 `
 
 const CardContainer = styled(Col)`

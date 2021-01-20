@@ -4,7 +4,7 @@ import history from './history'
 
 // Instância do cliente HTTP para as requisições
 const http = axios.create({
-    baseURL: "http://localhost:4646"
+    baseURL: "https://building-place-api.herokuapp.com/"
   //baseURL: process.env.REACT_APP_API
 });
 

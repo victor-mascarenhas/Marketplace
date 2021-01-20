@@ -44,8 +44,3 @@ border: thin solid #e7e7e7;
 const Title = styled.div`
 font-size: ${props => props.size + 'px' || '12px'};
 `
-const Logo = styled.div`
-svg{
-    font-size: 20px;
-}
-`

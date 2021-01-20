@@ -1,20 +1,28 @@
-import { List } from 'antd';
+import { List, Tooltip } from 'antd';
 import React from 'react'
 import { IoOpen } from 'react-icons/io5'
 import { FaTrash } from 'react-icons/fa'
 import styled from 'styled-components'
+import history from '../../config/history'
 
 
 const ListItem = ({product, removeProduct}) => {
 
+    const forward = () => {
+        history.push(`/produtos/${product._id}`)
+    }
         
     return (
 
         <List.Item
             key={product.key}
             actions={[
-                <Logo><IoOpen/> Visualizar </Logo>,
-                <Logo onClick={() => removeProduct(product)}> <FaTrash /> Remover </Logo>,
+                <Tooltip placement="top" title="Visualizar" arrowPointAtCenter>
+                   <Logo> <IoOpen onClick={forward} /> Visualizar </Logo> 
+                </Tooltip>,
+                <Tooltip placement="top" title="Remover" arrowPointAtCenter>
+                <Logo onClick={() => removeProduct(product)}> <FaTrash /> Remover </Logo>
+                </Tooltip>,
             ]}
             extra={
                 <img

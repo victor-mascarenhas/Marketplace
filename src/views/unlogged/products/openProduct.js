@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import Loading from '../../../components/loading'
 import { addProduct } from '../../../store/user/user.action'
 import history from '../../../config/history'
+import { toastr } from 'react-redux-toastr'
 
 const OpenProduct = () => {
 
@@ -19,6 +20,7 @@ const OpenProduct = () => {
     const loading = useSelector((state) => state.product.loading)
     const OneProduct = useSelector((state) => state.product.product)
     const onePartner = useSelector((state) => state.product.partner)
+    const isPartner = useSelector((state) => state.auth.user.partner)
 
     useEffect(() => {
         dispatch(getOneProduct(productId))
@@ -31,7 +33,13 @@ const OpenProduct = () => {
         return Math.round(props * 1.2)
     }
 
-    const addToCart = (_id) => dispatch(addProduct({ id: _id }))
+    const addToCart = (_id) => {
+        if(!isPartner){
+        dispatch(addProduct({ id: _id }))
+      }else{
+        toastr.error('ERRO!', 'Função desabilitada para parceiros!') 
+      }
+    }
 
 
     const forward = (props) => {
@@ -46,13 +54,14 @@ const OpenProduct = () => {
         if (onePartner.products) {
             return onePartner.products.slice(0, 3).map((item, i) => (
                 <Col key={i} span={8}>
-                    <Card title={item.title} bordered={false}>
+                    <OthersCard title={item.title} bordered={false} onClick={() => forwardProduct(item._id)}>
+                    <Tooltip placement="bottom" title="Visitar!" arrowPointAtCenter>
                         <ProductImage
                             preview={false}
-                            src={item.photo}
-                            onClick={() => forwardProduct(item._id)}
+                            src={item.photo}                            
                         />
-                    </Card>
+                    </Tooltip>
+                    </OthersCard>
                 </Col>
             ))
         }
@@ -204,4 +213,7 @@ min-width: 100%;
 
 const ProductImage = styled(Image)`
 display: block !important;
+`
+const OthersCard = styled(Card)`
+cursor: pointer;
 `

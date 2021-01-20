@@ -1,4 +1,4 @@
-import { Layout, Menu, Input } from 'antd'
+import { Layout, Menu } from 'antd'
 import styled from 'styled-components'
 import { FaHome, FaStoreAlt, FaHammer, FaShoppingCart } from 'react-icons/fa'
 import { GiBrickWall } from 'react-icons/gi'
@@ -50,11 +50,6 @@ const LayoutBase = ({ children, banner }) => {
     }
   }
 
-
-
-
-  const { Search } = Input;
-  const onSearch = value => console.log(value);
   logado()
   parceiro()
 
@@ -65,9 +60,6 @@ const LayoutBase = ({ children, banner }) => {
           <GiBrickWall />
         BuildingPlace
       </Logo>
-        <SearchContainer>
-          <Search placeholder="input search text" onSearch={onSearch} enterButton />
-        </SearchContainer>
         <MenuStyled
           theme="dark"
           mode="horizontal"
@@ -129,12 +121,7 @@ const Logo = styled.div`
     margin-right: 5px;
   }
 `
-const SearchContainer = styled.div`
-width: 25vw;
-display: flex;
-align-items: center;
-margin: 5px; 
-`
+
 
 const ContentStyled = styled(Content)`
 margin: 2rem 5rem;

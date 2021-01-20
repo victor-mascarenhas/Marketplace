@@ -4,12 +4,25 @@ import { IoOpen } from 'react-icons/io5'
 import { Tooltip } from 'antd';
 import styled from 'styled-components'
 import history from '../../config/history'
+import { addProduct } from '../../store/user/user.action'
+import { useDispatch, useSelector } from 'react-redux'
+import { toastr } from 'react-redux-toastr'
+
 
 const Cards = (props) => {
-
+    
+    const dispatch = useDispatch()
+    const isPartner = useSelector((state) => state.auth.user.partner)
     const forward = () => {
         history.push(`/produtos/${props.id}`)
     }
+    const addToCart = (_id) => {
+    if(!isPartner){
+    dispatch(addProduct({ id: _id }))
+  }else{
+    toastr.error('ERRO!', 'Função desabilitada para parceiros!') 
+  }
+}
 
     return (
         <StyledCard
@@ -25,7 +38,7 @@ const Cards = (props) => {
                    <Logo> <IoOpen onClick={forward} /> </Logo> 
                 </Tooltip>,
                 <Tooltip placement="top" title="Adicionar ao Carrinho" arrowPointAtCenter>
-                   <Logo> <ShoppingCartOutlined onClick={forward} /> </Logo>
+                   <Logo> <ShoppingCartOutlined onClick={() => addToCart(props.id)} /> </Logo>
                 </Tooltip>,
             ]}
         >

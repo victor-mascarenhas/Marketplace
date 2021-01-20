@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Layout, Col, Menu } from 'antd'
 import { getAllProducts } from '../../../store/product/product.action'
 import { getAllCategories } from '../../../store/category/category.action'
-import { MailOutlined } from '@ant-design/icons';
+import { TagsOutlined } from '@ant-design/icons';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loading from '../../../components/loading'
@@ -102,12 +102,12 @@ const Products = () => {
 
 
   return (
-    <BaseLayout banner={true}>
+    <BaseLayout banner={false}>
       <h1> Produtos </h1>
       <Main>
         <ContainerMenu span={5}>
           <Menu mode="inline" openKeys={openKeys} onOpenChange={onOpenChange} style={{ width: 256 }} defaultOpenKeys={['sub1']} defaultSelectedKeys={["item1"]} >
-            <SubMenu key="sub1" icon={<MailOutlined />} title="Categorias" >
+            <SubMenu key="sub1" icon={<TagsOutlined />} title="Categorias" >
             <Menu.Item key={['item1']} onClick={() => setMenuFilter(false)}>
                 Todos os Produtos
                 </Menu.Item>
