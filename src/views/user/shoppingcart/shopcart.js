@@ -1,13 +1,13 @@
-import BaseLayout from '../../components/layout'
+import BaseLayout from '../../../components/layout'
 import styled from 'styled-components'
 import { Col, Image, Card, Button, Row, Tooltip } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import Loading from '../../components/loading'
-import { getAllProducts } from '../../store/product/product.action'
+import Loading from '../../../components/loading'
+import { getAllProducts } from '../../../store/product/product.action'
 import { useEffect, useState } from 'react'
-import ShoppingList from '../../components/shopcart/list'
-import { getUserProducts } from '../../store/user/user.action'
-import history from '../../config/history'
+import ShoppingList from '../../../components/shopcart/list'
+import { getUserProducts } from '../../../store/user/user.action'
+import history from '../../../config/history'
 
 
 const ShoppingCart = () => {
@@ -54,9 +54,13 @@ const ShoppingCart = () => {
                 <h2>Total R$ {total.toFixed(2)} </h2>
                 <h3>ou em 12x de R$ {(total/12).toFixed(2)} sem juros</h3>
                 <br />
-                <Button type="primary" > Prosseguir </Button>
+                <Button type="primary" onClick={() => submitOrder()} > Prosseguir </Button>
             </PriceCard>
         )
+    }
+
+    const submitOrder = () => {
+        history.push(`/carrinho/result`)
     }
 
 

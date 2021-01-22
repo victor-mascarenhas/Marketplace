@@ -19,7 +19,7 @@ export const signIn = (props) => {
             http.defaults.headers["x-auth-token"] = data.token;
             history.push('/')
         } catch (error) {
-            console.log(error.message)
+            toastr.error("ERROR !", `Não foi possível fazer o login, verifique login e senha`);
         }
     }
 };

@@ -7,13 +7,12 @@ const submitOrder = () => {
         <BaseLayout>
         <Result
     status="success"
-    title="Successfully Purchased Cloud Server ECS!"
-    subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+    title="Sucesso!"
+    subTitle="Seu pedido foi enviado."
     extra={[
-      <Button type="primary" key="console">
-        Go Console
-      </Button>,
-      <Button key="buy">Buy Again</Button>,
+      <Button type="primary">
+          <Link to="/">Voltar para página principal</Link>
+      </Button>
     ]}
   />
         </BaseLayout>        
