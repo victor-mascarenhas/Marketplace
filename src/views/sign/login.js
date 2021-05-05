@@ -1,55 +1,47 @@
-import { Layout, Button } from 'antd'
-import styled from 'styled-components'
-import LoginForm from '../../components/sign/formSignIn'
-import history from '../../config/history'
+import { Layout, Button } from "antd";
+import styled from "styled-components";
+import LoginForm from "../../components/sign/formSignIn";
+import history from "../../config/history";
 
-const { Content } = Layout
-
+const { Content } = Layout;
 
 const SignIn = () => {
-
-    
-    return (
-        <Layout className="layout">
-            <Main>
-                <LoginContainer>
-                    <LoginForm />
-                    <hr />
-                    <br />
-                    <Button
-                        onClick={() => history.push('/signup')}
-                        type="link"
-                        block
-                    >                        
-                    Não tem cadastro? Cadastre-se!                        
-                    </Button>
-                    
-
-                </LoginContainer>
-            </Main>
-        </Layout>
-    );
-
+  return (
+    <Layout className="layout">
+      <Main>
+        <LoginContainer>
+          <LoginForm />
+          <hr />
+          <br />
+          <Button onClick={() => history.push("/")} type="link" block>
+            Voltar para página principal
+          </Button>
+          <Button onClick={() => history.push("/signup")} type="link" block>
+            Não tem cadastro? Cadastre-se!
+          </Button>
+        </LoginContainer>
+      </Main>
+    </Layout>
+  );
 };
 
-export default SignIn
+export default SignIn;
 
 const Main = styled(Content)`
-display: flex;
-height: 100vh;
-justify-content: center;
-align-items: center;
-`
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
 
 const LoginContainer = styled.div`
-width: 30vw;
-height: 60vh;
+  width: 30vw;
+  height: 60vh;
 
-hr{
+  hr {
     display: block;
     margin-left: auto;
-    margin-right: auto ;
-    width:15vw; 
-}
-`
-
+    margin-right: auto;
+    width: 15vw;
+  }
+`;

@@ -1,75 +1,59 @@
-import { Layout, Button } from 'antd'
-import { useState } from 'react'
-import styled from 'styled-components'
-import SignupForm from '../../components/sign/formSignUp'
-import history from '../../config/history'
+import { Layout, Button } from "antd";
+import { useState } from "react";
+import styled from "styled-components";
+import SignupForm from "../../components/sign/formSignUp";
+import history from "../../config/history";
 
-const { Content } = Layout
-
+const { Content } = Layout;
 
 const Signup = () => {
+  const [loja, setLoja] = useState(false);
 
-    const [loja, setLoja] = useState(false)
-
-    
-    return (
-        <Layout className="layout">
-            <Main>
-                <LoginContainer>
-                    < SignupForm 
-                    isPartner={loja}
-                    />
-                    <hr />
-                    <br />
-                    <Button
-                        onClick={() => history.push('/login')}
-                        type="link"
-                        block
-                    >                        
-                    Já possuí cadastro? Faça login!                            
-                    </Button>
-                    { !loja 
-                    ? <Button
-                        onClick={() => setLoja(true)}
-                        type="link"
-                        block
-                    >                        
-                    Seja nosso parceiro, cadastre sua loja!                            
-                    </Button> 
-                    : <Button
-                    onClick={() => setLoja(false)}
-                    type="link"
-                    block
-                >                        
-                Voltar                           
-                </Button>}
-
-                    
-                </LoginContainer>
-            </Main>
-        </Layout>
-    );
-
+  return (
+    <Layout className="layout">
+      <Main>
+        <LoginContainer>
+          <SignupForm isPartner={loja} />
+          <hr />
+          <br />
+          <Button onClick={() => history.push("/")} type="link" block>
+            Voltar para página principal
+          </Button>
+          <Button onClick={() => history.push("/login")} type="link" block>
+            Já possuí cadastro? Faça login!
+          </Button>
+          {!loja ? (
+            <Button onClick={() => setLoja(true)} type="link" block>
+              Seja nosso parceiro, cadastre sua loja!
+            </Button>
+          ) : (
+            <Button onClick={() => setLoja(false)} type="link" block>
+              Voltar
+            </Button>
+          )}
+        </LoginContainer>
+      </Main>
+    </Layout>
+  );
 };
 
-export default Signup
+export default Signup;
 
 const Main = styled(Content)`
-display: flex;
-height: 100vh;
-justify-content: center;
-align-items: center;
-`
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
 
 const LoginContainer = styled.div`
-width: 30vw;
-height: 60vh;
+  width: 30vw;
+  height: 60vh;
 
-hr{
+  hr {
     display: block;
     margin-left: auto;
-    margin-right: auto ;
-    width:15vw; 
-}
-`
-
+    margin-right: auto;
+    width: 15vw;
+  }
+`;
