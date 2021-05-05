@@ -1,4 +1,4 @@
-# CMS - Building-Place
+# Building-Place
 
 The project consists of a platform in the marketplace format with the theme of construction materials, where
 multiple partner stores can offer their products in the same environment.
